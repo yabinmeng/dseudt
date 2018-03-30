@@ -4,8 +4,6 @@ import com.datastax.driver.core.*;
 import com.datastax.driver.core.querybuilder.BuiltStatement;
 import com.datastax.driver.core.querybuilder.QueryBuilder;
 import com.ymeng.utils.DBConstant;
-import com.ymeng.utils.codec.PName;
-import com.ymeng.utils.codec.PNameCodec;
 
 import java.util.*;
 
