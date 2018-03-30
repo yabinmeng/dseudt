@@ -7,9 +7,7 @@ import com.ymeng.utils.DBConstant;
 import com.ymeng.utils.codec.PName;
 import com.ymeng.utils.codec.PNameCodec;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 public class UDTUserTypeTest
 {
@@ -40,11 +38,14 @@ public class UDTUserTypeTest
 
             UDTValue udtValue = pNameType.newValue();
             udtValue.setString("fname", "Jon");
-            udtValue.setString("lnam", "snow");
+            udtValue.setString("lname", "snow");
+
+            List<UDTValue> udtValues = new ArrayList<UDTValue>();
+            udtValues.add(udtValue);
 
             BuiltStatement insBltQuery1 = QueryBuilder.insertInto(tableMetadata)
                 .value("id", 301)
-                .value("names", udtValue);
+                .value("names", udtValues);
             session.execute(insBltQuery1);
 
             // Read all records from the table

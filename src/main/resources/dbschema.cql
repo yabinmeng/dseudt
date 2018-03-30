@@ -1,5 +1,5 @@
 CREATE KEYSPACE IF NOT EXISTS testks WITH replication =
-    {'class': 'SimpleStrategy', 'replication_factor': '2'} AND durable_writes = true;
+  {'class': 'SimpleStrategy', 'replication_factor': '2'} AND durable_writes = true;
 
 CREATE TYPE IF NOT EXISTS testks.pname  (
   fname text,
