@@ -33,9 +33,6 @@ public class UDTCodecTest
                     .getProtocolOptions()
                     .getProtocolVersion();
 
-            TableMetadata tableMetadata =
-                cluster.getMetadata().getKeyspace(DBConstant.KEYSPACE_NAME).getTable(DBConstant.TABLE_NAME);
-
             UserType pNameType =
                 cluster.getMetadata().getKeyspace(DBConstant.KEYSPACE_NAME).getUserType(DBConstant.UDT_TYPE_NAME);
 
@@ -44,28 +41,19 @@ public class UDTCodecTest
             codecRegistry.register(pNameCodec);
 
             List<PName> names = new ArrayList<PName>();
-            names.add(new PName("jane", "dow"));
+            names.add(new PName("Sam", "Winchester"));
+
+            TableMetadata tableMetadata =
+                cluster.getMetadata().getKeyspace(DBConstant.KEYSPACE_NAME).getTable(DBConstant.TABLE_NAME);
 
             BuiltStatement insBltQuery1 = QueryBuilder.insertInto(tableMetadata)
-                    .value("id", 1)
+                    .value("id", 100)
                     .value("names", names);
             session.execute(insBltQuery1);
 
             BuiltStatement insBltQuery2 = QueryBuilder.insertInto(tableMetadata)
-                    .value("id", 2);
+                    .value("id", 101);
             session.execute(insBltQuery2);
-
-            // Read all records from the table
-            String[] colNames = new String[]{"id", "names"};
-            BuiltStatement readQuery = QueryBuilder.select(colNames).from(tableMetadata);
-
-            ResultSet rs1 = session.execute(readQuery);
-            Iterator<Row> rs1Rows = rs1.all().iterator();
-
-            while (rs1Rows.hasNext()) {
-                Row rs1Row = rs1Rows.next();
-                System.out.println(rs1Row.toString());
-            }
 
             System.out.println("\n\n---------------");
             System.out.println("Cassandra version: " + row.getString("release_version") +
